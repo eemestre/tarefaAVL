@@ -87,7 +87,8 @@ void imprimePosOrdem (Tree t, link h){
 }
 void imprimePreOrdem (Tree t, link h, int k) {
   if(h == t->z) return;
-  for(int i = 0; i <= k; i++)
+  int i; // mudança pois não compilava
+  for(i = 0; i <= k; i++)
     printf (" . ");
   printf("<chave: %d N: %d>\n", h->item, h->N); 
   imprimePreOrdem (t, h->l, k + 1); 
@@ -139,10 +140,52 @@ void imprimeFromNode(Tree a, link h, char *s) {
   printf("}\n");
 }
 
+// código novo:
+
 link AVLinsertR (Tree t, link h, int item){
-  // Implemente o AVL insert, faça as modificações necessárias no código
-  return NULL;
+  if(h == t->z) {
+	  return novoNo(item, t->z, t->z);
+  }
+  
+  if(item < h->item) {
+	  h->l = AVLinsertR(t, h->l, item);
+  } else {
+	  h->r = AVLinsertR(t, h->r, item);
+  }
+  
+  if(h->l->N > h->r->N) {
+	  h->N = 1 + h->l->N;
+  } else {
+	  h->N = 1 + h->r->N;
+  }
+  
+  int fb = h->l->N - h->r->N;
+  
+  if(fb > 1) {
+	  if(item < h->l->item) {
+		  h = rotR(t, h);
+	  } else {
+		  h->l = rotL(t, h->l);
+		  h = rotR(t, h);
+	  }
+  }
+  if(fb < -1) {
+  	if(item > h->r->item) {
+		  h = rotL(t, h);
+	  } else {
+		  h->r = rotR(t, h->r);
+		  h = rotL(t, h);
+	  }
+  }
+  
+  return h;
 }
 
-
-
+link AVLinsert(Tree t, int item) {
+	if(t->head == t->z) {
+		t->head = novoNo(item, t->z, t->z);
+		return t->head;
+	} else {
+		t->head = AVLinsertR(t, t->head, item);
+	}
+}
