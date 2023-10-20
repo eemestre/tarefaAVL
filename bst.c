@@ -146,21 +146,17 @@ link AVLinsertR (Tree t, link h, int item){
   if(h == t->z) {
 	  return novoNo(item, t->z, t->z);
   }
-  
   if(item < h->item) {
 	  h->l = AVLinsertR(t, h->l, item);
   } else {
 	  h->r = AVLinsertR(t, h->r, item);
   }
-  
   if(h->l->N > h->r->N) {
 	  h->N = 1 + h->l->N;
   } else {
 	  h->N = 1 + h->r->N;
   }
-  
   int fb = h->l->N - h->r->N;
-  
   if(fb > 1) {
 	  if(item < h->l->item) {
 		  h = rotR(t, h);
@@ -177,10 +173,8 @@ link AVLinsertR (Tree t, link h, int item){
 		  h = rotL(t, h);
 	  }
   }
-  
   return h;
 }
-
 link AVLinsert(Tree t, int item) {
 	if(t->head == t->z) {
 		t->head = novoNo(item, t->z, t->z);
