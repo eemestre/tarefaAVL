@@ -8,12 +8,12 @@ struct node {
   link r;
   int item;
   int N;      // quantidade de nos na subarvore
-  int id;     // id da nó
+  int id;     // id da nÃ³
 };
 
 typedef struct tree {
   link head; // raiz
-  link z;    // nó externo
+  link z;    // nÃ³ externo
 } * Tree;
 
 Tree createTree();
@@ -31,10 +31,10 @@ void imprimeEmOrdem (Tree t, link h);
 void imprimePosOrdem (Tree t, link h);
 void imprimePreOrdem (Tree t, link h, int k);
 
-link AVLinsert (Tree t,link h, int item);
+link AVLinsertR (Tree t,link h, int item); // função modificada
+
+link AVLinsert (Tree t, int item); // função adicionada
 
 void imprime(Tree a, char *s);
  
 #endif 
-
-
